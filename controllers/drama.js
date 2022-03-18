@@ -66,16 +66,26 @@ router.delete("/:id", (req,res) => {
 //reviews crud
 
 //CREATE
-router.post("/:id/review", (req,res) => {
-    const foundDrama = db.Drama.findById(req.params.id)
-    foundDrama.reviews.push(req.body)
-    foundDrama.save()
+router.put("/:id/review", async (req,res) => {
+    try {
+        const foundDrama = await db.Drama.findById(req.params.id)
+        foundDrama.reviews.push(req.body)
+        await foundDrama.save()
+        res.send(foundDrama)
+    } catch (error) {
+        res.status(503).json({message:`An error occured. Details : ${err}`})
+    }
 })
 
 //READ
-router.get("/:id" , async (req,res) => {
-  const foundDrama = await db.Drama.findById(req.params.id)
-  const foundReview = foundDrama.reviews
+router.delete("/:id" , async (req,res) => {
+    try{
+        const foundDrama = await db.Drama.findById(req.params.id)
+        foundDrama.reviews.id(req.params.id).remove()
+        foundDrama.save()
+    } catch (err) {
+        console.log(err)
+    }
     
 })
 
