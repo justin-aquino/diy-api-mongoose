@@ -2,7 +2,7 @@ const mongoose = require("mongoose")
 
 const reviewSchema = new mongoose.Schema({
     header: String,
-    body: String,
+    content: String,
 
 })
 
@@ -11,10 +11,10 @@ const dramaSchema = new mongoose.Schema({
     synopsis: String,
     episodes: Number,
     reviews: [ reviewSchema ], //upsert this
-    reviewer: {
-        type: mongoose.Schema.Types.ObjectId,
-        ref: "User"
-    }
+    // reviewer: {
+    //     type: mongoose.Schema.Types.ObjectId,
+    //     ref: "User"
+    // }
 })
 
 module.exports = mongoose.model("Drama", dramaSchema)
